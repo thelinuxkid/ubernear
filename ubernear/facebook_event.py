@@ -193,9 +193,11 @@ def _save_events(
             ):
             save['facebook']['start_time'] = utc_from_iso8601(
                 save['facebook']['start_time'],
+                naive=True,
                 )
             save['facebook']['end_time'] = utc_from_iso8601(
                 save['facebook']['end_time'],
+                naive=True,
                 )
         else:
             _mark_as_failed(
@@ -209,6 +211,7 @@ def _save_events(
         if 'updated_time' in save['facebook']:
             save['facebook']['updated_time'] = utc_from_iso8601(
                 save['facebook']['updated_time'],
+                naive=True,
                 )
 
 

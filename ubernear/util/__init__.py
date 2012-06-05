@@ -1,11 +1,10 @@
-import dateutil.parser
-import dateutil.tz
 import json
 import signal
 import sys
 import logging
 
-from datetime import datetime
+from dateutil import parser, tz
+from datetime import datetime, timedelta
 from collections import OrderedDict, defaultdict
 
 log = logging.getLogger(__name__)
@@ -19,22 +18,41 @@ def read_http(res):
 
 def utc_from_iso8601(
     dt_str,
+    naive=False,
     _parser=None,
     ):
     if _parser is None:
-        _parser = dateutil.parser
+        _parser = parser
 
     # dateutil.parser.parse returns today's date when fed the empty string
     if dt_str == '':
-        raise ValueError
+        raise ValueError('string cannot be empty')
     dt = _parser.parse(dt_str)
-    if dt.tzinfo is not None:
-        if dt.tzinfo.utcoffset(dt) is not None:
-            dt = dt.astimezone(dateutil.tz.tzutc())
+    if dt.tzinfo is None:
+        # We cannot convert to UTC without knowing a timezone
+        # A lack of timezone implies local time.
+        # http://en.wikipedia.org/wiki/ISO_8601#Time_zone_designators
+        raise ValueError(
+            'string must contain timezome information'
+            )
+
+    if dt.tzinfo.utcoffset(dt) is not None:
+        dt = dt.astimezone(tz.tzutc())
+
+    if naive:
         dt = dt.replace(tzinfo=None)
 
     return dt
 
+def utc_to_local(dt, naive=False):
+    if dt.tzinfo is None or dt.tzinfo.utcoffset(dt) != timedelta(0):
+        raise ValueError('Datetime is not in UTC')
+
+    dt = dt.astimezone(tz.tzlocal())
+    if naive:
+        dt = dt.replace(tzinfo=None)
+
+    return dt
 
 def read_json(res):
     data = [datum for datum in read_http(res)]

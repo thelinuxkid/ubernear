@@ -2,6 +2,10 @@
 from setuptools import setup, find_packages
 
 EXTRAS_REQUIRES = dict(
+    web=[
+        'bottle>=0.10.9',
+        'paste>=1.7.5.1',
+        ],
     mongo=[
         'pymongo>=2.2',
         ],
@@ -54,6 +58,7 @@ setup(
             'factual-import = ubernear.cli.factual_import:main [mongo]',
             'place-geocode = ubernear.cli.place_geocode:main [mongo,util,geo]',
             'event-location = ubernear.cli.event_location:main [mongo,util]',
+            'event-api = ubernear.cli.event_api:main [web,mongo,util]',
             ],
         },
     )

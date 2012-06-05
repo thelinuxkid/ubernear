@@ -1,9 +1,9 @@
-import fudge
-
 from nose.tools import eq_ as eq
-from datetime import datetime, tzinfo
+from dateutil import tz
+from datetime import datetime
 
 from ubernear import util
+from ubernear.test.util import assert_raises
 
 def test_takeslice_simple():
     data = range(1,4+1)
@@ -52,36 +52,88 @@ def test_takeslice_iter_smaller_than_step():
         ]
     eq(list(res), expected)
 
-def test_utc_from_iso_naive():
-    dt = util.utc_from_iso8601('2011-11-17T2:30:58.403397')
-    eq(dt, datetime(2011, 11, 17, 2, 30, 58, 403397))
-    eq(dt.tzinfo, None)
-
 def test_utc_from_iso_aware():
     dt = util.utc_from_iso8601('2011-11-16T18:36:06.795119-08:00')
-    eq(dt, datetime(2011, 11, 17, 2, 36, 06, 795119))
-    eq(dt.tzinfo, None)
+    eq(dt, datetime(2011, 11, 17, 2, 36, 06, 795119, tz.tzutc()))
 
 def test_utc_from_iso_aware_utc():
-    dt = util.utc_from_iso8601('2011-10-12T19:55:58+0000')
-    eq(dt, datetime(2011, 10, 12, 19, 55, 58))
-    eq(dt.tzinfo, None)
+    dt = util.utc_from_iso8601('2011-10-12T19:55:58.345128+0000')
+    eq(dt, datetime(2011, 10, 12, 19, 55, 58, 345128, tz.tzutc()))
 
-def test_utc_from_iso_half_aware():
-    fake_parser = fudge.Fake('parser')
-    fake_parser.remember_order()
-
-    fake_parser.expects('parse')
-    fake_parser.with_args('2011-10-12T19:55:58+0000')
-    class fake_tzinfo(tzinfo):
-        def utcoffset(self, dt):
-            return None
-    dt = datetime(2011, 10, 12, 19, 55, 58, tzinfo=fake_tzinfo())
-    fake_parser.returns(dt)
-
+def test_utc_from_iso_to_naive():
     dt = util.utc_from_iso8601(
-        '2011-10-12T19:55:58+0000',
-        _parser=fake_parser,
+        '2011-11-16T18:36:06.795119-08:00',
+        naive=True,
+    )
+    eq(dt, datetime(2011, 11, 17, 2, 36, 06, 795119))
+
+def test_utc_from_iso_to_naive_utc():
+    dt = util.utc_from_iso8601(
+        '2011-10-12T19:55:58.345128+0000',
+        naive=True,
+    )
+    eq(dt, datetime(2011, 10, 12, 19, 55, 58, 345128))
+
+def test_utc_from_empty():
+    msg = assert_raises(
+        ValueError,
+        util.utc_from_iso8601,
+        '',
         )
-    eq(dt, datetime(2011, 10, 12, 19, 55, 58))
-    eq(dt.tzinfo, None)
+
+    eq(str(msg), 'string cannot be empty')
+
+def test_utc_from_iso_no_timezone():
+    msg = assert_raises(
+        ValueError,
+        util.utc_from_iso8601,
+        '2011-11-17T2:30:58.403397',
+    )
+
+    eq(str(msg), 'string must contain timezome information')
+
+def test_utc_from_iso_from_naive():
+    msg = assert_raises(
+        ValueError,
+        util.utc_from_iso8601,
+        '2011-11-T2:30:58.403397',
+    )
+
+    eq(str(msg), 'unknown string format')
+
+def test_utc_to_local_simple():
+    dt = util.utc_to_local(
+        datetime(2011, 11, 17, 2, 36, 06, 795119, tz.tzutc())
+    )
+    eq(dt,
+       datetime(2011, 11, 16, 18, 36, 06, 795119, tz.tzlocal())
+    )
+
+def test_utc_to_local_to_naive():
+    dt = util.utc_to_local(
+        datetime(2011, 11, 17, 2, 36, 06, 795119, tz.tzutc()),
+        naive=True,
+    )
+    eq(dt,
+       datetime(2011, 11, 16, 18, 36, 06, 795119)
+    )
+
+def test_utc_to_local_from_naive():
+    dt = datetime(2011, 10, 12, 2, 30, 58, 403397)
+    msg = assert_raises(
+        ValueError,
+        util.utc_to_local,
+        dt,
+    )
+
+    eq(str(msg), 'Datetime is not in UTC')
+
+def test_utc_to_local_not_in_utc():
+    dt = datetime(2011, 10, 12, 2, 30, 58, 403397, tz.tzlocal())
+    msg = assert_raises(
+        ValueError,
+        util.utc_to_local,
+        dt,
+    )
+
+    eq(str(msg), 'Datetime is not in UTC')

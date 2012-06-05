@@ -51,14 +51,14 @@ class TestFacebookEvent(object):
                 OrderedDict([
                         ('title', 'event title 226680217397995'),
                         ('id', '226680217397995'),
-                        ('start_time', '2012-02-26T08:00:00'),
-                        ('end_time', '2012-02-26T11:00:00'),
+                        ('start_time', '2012-02-26T08:00:00+00:00'),
+                        ('end_time', '2012-02-26T11:00:00+00:00'),
                         ]),
                 OrderedDict([
                         ('title', 'event title 267558763278075'),
                         ('id', '267558763278075'),
-                        ('start_time', '2012-02-26T08:00:00'),
-                        ('end_time', '2012-02-26T11:00:00'),
+                        ('start_time', '2012-02-26T08:00:00+00:00'),
+                        ('end_time', '2012-02-26T11:00:00+00:00'),
                         ]),
                 ])
 
@@ -728,8 +728,8 @@ class TestFacebookEvent(object):
                 OrderedDict([
                         ('title', 'event title 226680217397995'),
                         ('id', 'foo id'),
-                        ('start_time', '2012-02-26T08:00:00'),
-                        ('end_time', '2012-02-26T11:00:00'),
+                        ('start_time', '2012-02-26T08:00:00+00:00'),
+                        ('end_time', '2012-02-26T11:00:00+00:00'),
                         ]),
                 ])
 
@@ -799,8 +799,8 @@ class TestFacebookEvent(object):
                 OrderedDict([
                         ('title', 'event title 226680217397995'),
                         ('id', '226680217397995'),
-                        ('start_time', '2012-02-26T08:00:00'),
-                        ('end_time', '2012-02-26T11:00:00'),
+                        ('start_time', '2012-02-26T08:00:00+00:00'),
+                        ('end_time', '2012-02-26T11:00:00+00:00'),
                         ]),
                 OrderedDict([
                         ('title', 'event title 267558763278075'),
@@ -810,8 +810,8 @@ class TestFacebookEvent(object):
                                     ('longitude', -122.40981954615),
                                     ])
                          ),
-                        ('start_time', '2012-02-26T08:00:00'),
-                        ('end_time', '2012-02-26T11:00:00'),
+                        ('start_time', '2012-02-26T08:00:00+00:00'),
+                        ('end_time', '2012-02-26T11:00:00+00:00'),
                         ]),
                 ])
 
@@ -922,14 +922,14 @@ class TestFacebookEvent(object):
                 OrderedDict([
                         ('title', 'event title 226680217397995'),
                         ('id', 'foo id'),
-                        ('start_time', '2012-01-15T21:23'),
-                        ('end_time', '2012-01-16T05:22'),
+                        ('start_time', '2012-01-15T21:23+00:00'),
+                        ('end_time', '2012-01-16T05:22+00:00'),
                         ]),
                 OrderedDict([
                         ('title', 'event title 267558763278075'),
                         ('id', '267558763278075'),
-                        ('start_time', '2012-01-15T21:23'),
-                        ('end_time', '2012-01-16T05:22'),
+                        ('start_time', '2012-01-15T21:23+00:00'),
+                        ('end_time', '2012-01-16T05:22+00:00'),
                         ]),
                 ])
 
@@ -1088,7 +1088,7 @@ class TestFacebookEvent(object):
                 OrderedDict([
                         ('title', 'event title 226680217397995'),
                         ('id', '226680217397995'),
-                        ('start_time', '2012-02-26T11:00:00'),
+                        ('start_time', '2012-02-26T11:00:00+00:00'),
                         ]),
                 ])
 
@@ -1266,10 +1266,16 @@ class TestFacebookEvent(object):
                         ('title', 'event title {i}'.format(i=i)),
                         ('id', '{i}'.format(i=i)),
                         ('start_time',
-                         '2012-02-26T08:{:02}:{:02}'.format(min_, sec),
+                         '2012-02-26T08:{:02}:{:02}+00:00'.format(
+                             min_,
+                             sec
+                             ),
                          ),
                         ('end_time',
-                         '2012-02-26T11:{:02}:{:02}'.format(min_, sec),
+                         '2012-02-26T11:{:02}:{:02}+00:00'.format(
+                             min_,
+                             sec,
+                             ),
                          ),
                         ])
                 batch_response.append(response)
