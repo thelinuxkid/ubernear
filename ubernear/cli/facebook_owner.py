@@ -65,7 +65,9 @@ def _save_events(
         OrderedDict([
                 ('method', 'GET'),
                 ('relative_url',
-                 '{owner_id}/events'.format(owner_id=owner_id),
+                 '{owner_id}/events?date_format=c'.format(
+                     owner_id=owner_id,
+                     ),
                  ),
                 ])
         for owner_id in owner_ids

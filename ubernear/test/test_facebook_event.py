@@ -39,11 +39,11 @@ class TestFacebookEvent(object):
         request = [
             OrderedDict([
                     ('method', 'GET'),
-                    ('relative_url', '226680217397995'),
+                    ('relative_url', '226680217397995?date_format=c'),
                     ]),
             OrderedDict([
                     ('method', 'GET'),
-                    ('relative_url', '267558763278075'),
+                    ('relative_url', '267558763278075?date_format=c'),
                     ]),
             ]
         batch.with_args(request)
@@ -566,7 +566,7 @@ class TestFacebookEvent(object):
         request = [
             OrderedDict([
                     ('method', 'GET'),
-                    ('relative_url', '267558763278075'),
+                    ('relative_url', '267558763278075?date_format=c'),
                     ]),
             ]
         batch.with_args(request)
@@ -619,7 +619,7 @@ class TestFacebookEvent(object):
         request = [
             OrderedDict([
                     ('method', 'GET'),
-                    ('relative_url', '267558763278075'),
+                    ('relative_url', '267558763278075?date_format=c'),
                     ]),
             ]
         batch.with_args(request)
@@ -670,7 +670,7 @@ class TestFacebookEvent(object):
         request = [
             OrderedDict([
                     ('method', 'GET'),
-                    ('relative_url', '226680217397995'),
+                    ('relative_url', '226680217397995?date_format=c'),
                     ]),
             ]
         batch.with_args(request)
@@ -720,7 +720,7 @@ class TestFacebookEvent(object):
         request = [
             OrderedDict([
                     ('method', 'GET'),
-                    ('relative_url', '226680217397995'),
+                    ('relative_url', '226680217397995?date_format=c'),
                     ]),
             ]
         batch.with_args(request)
@@ -787,11 +787,11 @@ class TestFacebookEvent(object):
         request = [
             OrderedDict([
                     ('method', 'GET'),
-                    ('relative_url', '226680217397995'),
+                    ('relative_url', '226680217397995?date_format=c'),
                     ]),
             OrderedDict([
                     ('method', 'GET'),
-                    ('relative_url', '267558763278075'),
+                    ('relative_url', '267558763278075?date_format=c'),
                     ]),
             ]
         batch.with_args(request)
@@ -910,11 +910,11 @@ class TestFacebookEvent(object):
         request = [
             OrderedDict([
                     ('method', 'GET'),
-                    ('relative_url', '226680217397995'),
+                    ('relative_url', '226680217397995?date_format=c'),
                     ]),
             OrderedDict([
                     ('method', 'GET'),
-                    ('relative_url', '267558763278075'),
+                    ('relative_url', '267558763278075?date_format=c'),
                     ]),
             ]
         batch.with_args(request)
@@ -1021,7 +1021,7 @@ class TestFacebookEvent(object):
         request = [
             OrderedDict([
                     ('method', 'GET'),
-                    ('relative_url', '226680217397995'),
+                    ('relative_url', '226680217397995?date_format=c'),
                     ]),
             ]
         batch.with_args(request)
@@ -1029,7 +1029,7 @@ class TestFacebookEvent(object):
                 OrderedDict([
                         ('title', 'event title 226680217397995'),
                         ('id', '226680217397995'),
-                        ('end_time', '2012-02-26T11:00:00'),
+                        ('end_time', '2012-02-26T11:00:00+00:00'),
                         ]),
                 ])
 
@@ -1080,7 +1080,7 @@ class TestFacebookEvent(object):
         request = [
             OrderedDict([
                     ('method', 'GET'),
-                    ('relative_url', '226680217397995'),
+                    ('relative_url', '226680217397995?date_format=c'),
                     ]),
             ]
         batch.with_args(request)
@@ -1249,7 +1249,10 @@ class TestFacebookEvent(object):
             request = [
                 OrderedDict([
                         ('method', 'GET'),
-                        ('relative_url', '{i}'.format(i=i)),
+                        ('relative_url', '{i}?date_format=c'.format(
+                            i=i,
+                            ),
+                         ),
                         ])
                 for i in xrange(start,end)
                 ]

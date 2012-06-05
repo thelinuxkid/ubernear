@@ -116,11 +116,15 @@ def _save_events(
 
     batch = [
         OrderedDict([
-                ('method', 'GET'),
-                ('relative_url', event['_id']),
-                ])
+            ('method', 'GET'),
+            ('relative_url',
+             '{event_id}?date_format=c'.format(
+                 event_id=event['_id']
+             ),
+         ),
+        ])
         for event in events
-        ]
+    ]
     reponses = graph.batch(batch)
 
     for event,response in zip(events,reponses):
