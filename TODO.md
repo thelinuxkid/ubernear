@@ -18,3 +18,8 @@ API
 - Return the event category if it exists.
 - Add more specific time filters.
 - Add text search capability.
+
+General
+-------
+- Accept the fact that fudge is somewhat magical and use it as suggested.
+- Pass in MongoDB collection and database information as a dictionary and not individual function parameters.
