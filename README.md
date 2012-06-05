@@ -105,3 +105,70 @@ Where event-api.cfg looks like::
       port = <port>
 
 And mongodb.cfg is the same as facebook-owner's.
+
+Building
+========
+
+External dependencies
+---------------------
+
+    - libxml2-dev
+    - libxslt1-dev
+    - build-essential
+    - python-dev
+    - python-setuptools
+    - python-virtualenv
+
+Developing
+----------
+
+To start developing run the following commands from the project's
+base directory::
+
+    # I like to install the virtual environment in its own
+    # hidden repo but you don't have to
+    virtualenv --no-site-packages .virtual
+    # I leave the magic to Ruby developers (.virtual/bin/activate)
+    # but you don't have to agree with me
+    .virtual/bin/python setup.py develop
+    # Install development and testing dependecies. Pip doesn't seem
+    # to handle extras_require yet: https://github.com/pypa/pip/issues/7.
+    # So, use easy_install
+    # At this point, uberget will already be in easy-install.pth.
+    # So easy_install will not attempt to download it
+    .virtual/bin/easy_install ubernear.uberget[dev,test]
+
+Testing
+-------
+
+To run the unit-tests run the following command from the project's
+base directory::
+
+    .virtual/bin/nosetests
+
+Installing
+----------
+
+To install the project run the following commands from the project's
+base directory::
+
+    # I like to install the virtual environment in its own
+    # hidden repo but you don't have to
+    virtualenv --no-site-packages .virtual
+    # I leave the magic to Ruby developers (.virtual/bin/activate)
+    # but you don't have to agree with me
+    .virtual/bin/python setup.py install
+    # Install development and testing dependecies. Pip doesn't seem
+    # to handle extras_require yet: https://github.com/pypa/pip/issues/7.
+    # So, use easy_install
+    # At this point, uberget will already be in easy-install.pth.
+    # So easy_install will not attempt to download it
+
+    # Depending on the cli you wish to run install the appropriate
+    # dependencies as listed in setup.py. For example to run
+    # factual-import you would install the graph dependency
+    .virtual/bin/easy_install ubernear.uberget[mongo]
+
+    # If you wish to install all the dependencies and run the
+    # tests run
+    .virtual/bin/easy_install ubernear.uberget[test]
