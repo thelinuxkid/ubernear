@@ -134,9 +134,9 @@ base directory::
     # Install development and testing dependecies. Pip doesn't seem
     # to handle extras_require yet: https://github.com/pypa/pip/issues/7.
     # So, use easy_install
-    # At this point, uberget will already be in easy-install.pth.
+    # At this point, ubernear will already be in easy-install.pth.
     # So easy_install will not attempt to download it
-    .virtual/bin/easy_install ubernear.uberget[dev,test]
+    .virtual/bin/easy_install ubernear[dev,test]
 
 Testing
 -------
@@ -161,14 +161,14 @@ base directory::
     # Install development and testing dependecies. Pip doesn't seem
     # to handle extras_require yet: https://github.com/pypa/pip/issues/7.
     # So, use easy_install
-    # At this point, uberget will already be in easy-install.pth.
+    # At this point, ubernear will already be in easy-install.pth.
     # So easy_install will not attempt to download it
 
     # Depending on the cli you wish to run install the appropriate
     # dependencies as listed in setup.py. For example to run
-    # factual-import you would install the graph dependency
-    .virtual/bin/easy_install ubernear.uberget[mongo]
+    # factual-import you would install the mongo dependency
+    .virtual/bin/easy_install ubernear[mongo]
 
     # If you wish to install all the dependencies and run the
     # tests run
-    .virtual/bin/easy_install ubernear.uberget[test]
+    .virtual/bin/easy_install ubernear[test]
