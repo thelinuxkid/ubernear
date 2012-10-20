@@ -106,8 +106,8 @@ Where event-api.cfg looks like::
 
 And mongodb.cfg is the same as facebook-owner's.
 
-Building
-========
+Developing
+==========
 
 External dependencies
 ---------------------
@@ -119,8 +119,8 @@ External dependencies
     - python-setuptools
     - python-virtualenv
 
-Developing
-----------
+Setup
+-----
 
 To start developing run the following commands from the project's
 base directory::
@@ -138,6 +138,14 @@ base directory::
     # So easy_install will not attempt to download it
     .virtual/bin/easy_install ubernear[dev,test]
 
+    # The test requirement installs all the dependencies. But,
+    # depending on the cli you wish to run you might want to install
+    # only the appropriate dependencies as listed in setup.py. For
+    # example to run factual-import you only need the mongo
+    # requirement which installs the pymongo dependency
+    .virtual/bin/easy_install ubernear[mongo]
+
+
 Testing
 -------
 
@@ -145,30 +153,3 @@ To run the unit-tests run the following command from the project's
 base directory::
 
     .virtual/bin/nosetests
-
-Installing
-----------
-
-To install the project run the following commands from the project's
-base directory::
-
-    # I like to install the virtual environment in its own
-    # hidden repo but you don't have to
-    virtualenv --no-site-packages .virtual
-    # I leave the magic to Ruby developers (.virtual/bin/activate)
-    # but you don't have to agree with me
-    .virtual/bin/python setup.py install
-    # Install development and testing dependecies. Pip doesn't seem
-    # to handle extras_require yet: https://github.com/pypa/pip/issues/7.
-    # So, use easy_install
-    # At this point, ubernear will already be in easy-install.pth.
-    # So easy_install will not attempt to download it
-
-    # Depending on the cli you wish to run install the appropriate
-    # dependencies as listed in setup.py. For example to run
-    # factual-import you would install the mongo dependency
-    .virtual/bin/easy_install ubernear[mongo]
-
-    # If you wish to install all the dependencies and run the
-    # tests run
-    .virtual/bin/easy_install ubernear[test]
