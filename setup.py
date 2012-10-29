@@ -45,7 +45,7 @@ with open(path) as fp:
 
 setup(
     name='ubernear',
-    version='0.0.1',
+    version='0.0.2',
     description=(
         "ubernear -- Ubernear monitors Facebook event owners for new "
         " events and allows geo-spatial searches on events via a "
