@@ -125,25 +125,25 @@ Setup
 To start developing run the following commands from the project's
 base directory::
 
-    # I like to install the virtual environment in its own
-    # hidden repo but you don't have to
-    virtualenv --no-site-packages .virtual
+    # I like to install the virtual environment in a hidden repo.
+    virtualenv .virtual
     # I leave the magic to Ruby developers (.virtual/bin/activate)
-    # but you don't have to agree with me
     .virtual/bin/python setup.py develop
-    # Install development and testing dependecies. Pip doesn't seem
-    # to handle extras_require yet: https://github.com/pypa/pip/issues/7.
-    # So, use easy_install
     # At this point, ubernear will already be in easy-install.pth.
-    # So easy_install will not attempt to download it
-    .virtual/bin/easy_install ubernear[dev,test]
+    # So, pip will not attempt to download it
+    .virtual/bin/pip install ubernear[test]
 
     # The test requirement installs all the dependencies. But,
     # depending on the cli you wish to run you might want to install
     # only the appropriate dependencies as listed in setup.py. For
     # example to run factual-import you only need the mongo
     # requirement which installs the pymongo dependency
-    .virtual/bin/easy_install ubernear[mongo]
+    .virtual/bin/pip install ubernear[mongo]
+
+If you like to use ipython you can install it with the dev
+requirement::
+
+    .virtual/bin/pip install ubernear[dev]
 
 
 Testing
